@@ -3,7 +3,7 @@ url ="https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&a
 api_key = 'Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u'
 
 
-# https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u
+# link url con API_KEY https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u
 
 
 
@@ -28,22 +28,22 @@ def head()
             '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <a class="navbar-brand my-3" style="font-size: 3rem"; href="#">FOTOS ROVER NASA EN MARTE</a>
                 <div class="navbar-nav">
-                    <a class="nav-link" href="#">PRUEBA DE PROGRAMACION CON RUBY</a>
+                    <a class="nav-link ml-auto" href="#">PRUEBA DE PROGRAMACION CON RUBY</a>
                 </div>
             </nav>'
 
  end
 
-
- def request(api_key)
-    rover = get_data("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=#{api_key}")
+# Metodo Request solicitado con URL y Api_Key concatenadas
+ def request(url, api_key)
+    rover = get_data("#{url}#{api_key}")
 
     return rover
 end 
 
-def build_web_page(api_key)
+def build_web_page(url, api_key)
 
-    data = request(api_key)
+    data = request(url, api_key)
 
     cards = '<div class="row container-fluid">'
 
@@ -52,16 +52,19 @@ def build_web_page(api_key)
 
     data.each do |key, value|
         value.each do |cat|
-            # cat.each do |datos, clase|
+            # cat["rover"].each do |datos, clase|
                 
 
                         cards += "
 
-                        <div class='card mx-5 mt-5 ' style='width: 18rem;'>
-                            <img src='#{cat["img_src"]}' class='card-img-top' alt='Rover'>
+                        <div class='card mx-5 mt-5' style='width: 18rem;'>
+                                <img src='#{cat["img_src"]}' class='card-img-top' alt='Rover'>
                             <div class='card-body'>
+                                <h5 class='card-title'>Id de la imagen #{cat["id"]}</h5>
+                                <p class='card-text'>Fecha: #{cat["earth_date"]}</p>
                             </div>
                         </div>
+                            
                         
                         "
             
@@ -92,7 +95,7 @@ end
 
 
 
-index = head + navbar + build_web_page(api_key) + foot
+index = head + navbar + build_web_page(url, api_key) + foot
 
 File.write('./index.html', index)
 
