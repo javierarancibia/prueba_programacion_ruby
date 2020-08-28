@@ -1,5 +1,7 @@
 require_relative 'request'
+url ="https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key="
 api_key = 'Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u'
+
 
 # https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u
 
@@ -14,16 +16,23 @@ def head()
                  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
                  <title>Informacion Rover en Marte</title>
              </head>
-             <body>
-                   <h1 class="text-center">Rover en Marte</h1>'
+             <body>'
                  
      return head
  
  end
 
- 
 
 
+ def navbar()
+            '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a class="navbar-brand" href="#">FOTOS ROVER NASA EN MARTE</a>
+                <div class="navbar-nav">
+                    <a class="nav-link" href="#">PRUEBA DE PROGRAMACION CON RUBY</a>
+                </div>
+            </nav>'
+
+ end
 
 
  def request(api_key)
@@ -36,9 +45,9 @@ def build_web_page(api_key)
 
     data = request(api_key)
 
-    cards = '<div class="row container">'
+    cards = '<div class="row container-fluid">'
 
-    cards += "\t\t<div class='card-deck'>\n"
+    
 
 
     data.each do |key, value|
@@ -48,7 +57,7 @@ def build_web_page(api_key)
 
                         cards += "
 
-                        <div class='card' style='width: 18rem;'>
+                        <div class='card mx-5 mt-5 ' style='width: 18rem;'>
                             <img src='#{cat["img_src"]}' class='card-img-top' alt='Rover'>
                             <div class='card-body'>
                             </div>
@@ -56,7 +65,7 @@ def build_web_page(api_key)
                         
                         "
             
-                    cards += '</div>'
+                    # cards += '</div>'
 
             # end
                 
@@ -84,7 +93,7 @@ end
 
 
 
-index = head + build_web_page(api_key) + foot
+index = head + navbar + build_web_page(api_key) + foot
 
 File.write('./index.html', index)
 

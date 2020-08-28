@@ -30,7 +30,7 @@ def content(api)
     data.each do |digimon|
         cards += "
 
-        <div class='card' style='width: 18rem;'>
+        <div class='card mx-auto' style='width: 18rem;'>
             <img src='#{digimon['img']}' class='card-img-top' alt='#{digimon['name']}'>
             <div class='card-body'>
             <h5 class='card-title'>'#{digimon['name']}'</h5>
