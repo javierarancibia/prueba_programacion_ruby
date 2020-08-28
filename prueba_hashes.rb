@@ -1,5 +1,7 @@
 require_relative 'request'
+url ="https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key="
 api_key = 'Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u'
+
 
 # https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u
 
@@ -36,9 +38,9 @@ def build_web_page(api_key)
 
     data = request(api_key)
 
-    cards = '<div class="row container">'
+    cards = '<div class="row container-fluid">'
 
-    cards += "\t\t<div class='card-deck'>\n"
+    
 
 
     data.each do |key, value|
@@ -56,7 +58,7 @@ def build_web_page(api_key)
                         
                         "
             
-                    cards += '</div>'
+                    # cards += '</div>'
 
             # end
                 
