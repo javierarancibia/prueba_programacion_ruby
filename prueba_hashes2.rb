@@ -1,6 +1,9 @@
 require_relative 'request'
 api_key = 'Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u'
 
+# https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u
+
+
 
 def head()
     head =   '<!DOCTYPE html>
@@ -9,7 +12,7 @@ def head()
                  <meta charset="UTF-8">
                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
                  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-                 <title>Informacin Rover en Marte</title>
+                 <title>Informacion Rover en Marte</title>
              </head>
              <body>
                    <h1 class="text-center">Rover en Marte</h1>'
@@ -21,7 +24,9 @@ def head()
  
 
 
-def request(key)
+
+
+ def request(api_key)
     rover = get_data("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=#{api_key}")
 
     return rover
@@ -31,38 +36,39 @@ def build_web_page(api_key)
 
     data = request(api_key)
 
-    cards = '<div class="row container-fluid mx-auto">'
+    cards = '<div class="row container">'
+
+    cards += "\t\t<div class='card-deck'>\n"
 
 
-    data.each do |photos, info|
-        info.each do |cat|
-                cat["img_src"]
-
-                cards += "
-
-                <div class='card' style='width: 18rem;'>
-                    <img src='#{img_src}'img']}' class='card-img-top' alt='#{digimon['name']}'>
-                    <div class='card-body'>
-                    <h5 class='card-title'>'#{"full_name"}'</h5>
-                    <p class='card-text'>'#{"name"]}'</p>
-                    </div>
-                </div>
+    data.each do |key, value|
+        value.each do |cat|
+            # cat.each do |datos, clase|
                 
-                "
-            end
-            cards += '</div>'
 
-            return cards
+                        cards += "
 
+                        <div class='card' style='width: 18rem;'>
+                            <img src='#{cat["img_src"]}' class='card-img-top' alt='Rover'>
+                            <div class='card-body'>
+                            </div>
+                        </div>
+                        
+                        "
+            
+                    cards += '</div>'
 
+            # end
+                
         end
     end
-
-            
-
-    return rover
-end
         
+        
+        return cards
+        return rover
+        
+    end
+    
 
 
 

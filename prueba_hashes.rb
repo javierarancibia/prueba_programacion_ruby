@@ -1,51 +1,76 @@
 require_relative 'request'
+api_key = 'Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u'
+
+# https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u
+
+
 
 def head()
-   head =   '<!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-                <title>Digimon</title>
-            </head>
-            <body>
-                  <h1 class="text-center">Digimon</h1>'
+    head =   '<!DOCTYPE html>
+             <html lang="en">
+             <head>
+                 <meta charset="UTF-8">
+                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+                 <title>Informacion Rover en Marte</title>
+             </head>
+             <body>
+                   <h1 class="text-center">Rover en Marte</h1>'
+                 
+     return head
+ 
+ end
+
+ 
+
+
+
+
+ def request(api_key)
+    rover = get_data("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=#{api_key}")
+
+    return rover
+end 
+
+def build_web_page(api_key)
+
+    data = request(api_key)
+
+    cards = '<div class="row container">'
+
+    cards += "\t\t<div class='card-deck'>\n"
+
+
+    data.each do |key, value|
+        value.each do |cat|
+            # cat.each do |datos, clase|
                 
-    return head
 
-end
+                        cards += "
 
+                        <div class='card' style='width: 18rem;'>
+                            <img src='#{cat["img_src"]}' class='card-img-top' alt='Rover'>
+                            <div class='card-body'>
+                            </div>
+                        </div>
+                        
+                        "
+            
+                    cards += '</div>'
 
-def build_web_page(api)
-
-    data = get_data(api)
-
-    if data.nil? 
-        cards = '<h3 class="text-center">Fotos Rover en Martes</h3>'
-    else
-
-    cards = '<div class="row container-fluid mx-auto">'
-
-    data.each do |digimon|
-        cards += "
-
-        <div class='card' style='width: 18rem;'>
-            <img src='#{digimon['img']}' class='card-img-top' alt='#{digimon['name']}'>
-            <div class='card-body'>
-            <h5 class='card-title'>'#{digimon['name']}'</h5>
-            <p class='card-text'>'#{digimon['name']}'</p>
-            </div>
-        </div>
-        
-        "
+            # end
+                
+        end
     end
-        cards += '</div>'
-
+        
+        
         return cards
+        return rover
+        
+    end
     
-    end   
-end
+
+
 
 def foot()
     
@@ -58,11 +83,15 @@ def foot()
 end
 
 
-url = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=Iyn1tIbreAs3FPbON5buVV67lOHRIMgfgIxBdI3u"
 
-index = head() +  build_web_page(url) + foot()
+index = head + build_web_page(api_key) + foot
 
 File.write('./index.html', index)
 
 
 
+        
+
+
+
+       
