@@ -16,7 +16,7 @@ def head()
                  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
                  <title>Informacion Rover en Marte</title>
              </head>
-             <body>'
+             <body class="container">'
                  
      return head
  
@@ -26,9 +26,9 @@ def head()
 
  def navbar()
             '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a class="navbar-brand my-3" style="font-size: 3rem"; href="#">FOTOS ROVER NASA EN MARTE</a>
+                    <a class="navbar-brand my-3" style="font-size: 2rem"; href="#">FOTOS ROVER NASA EN MARTE</a>
                 <div class="navbar-nav">
-                    <a class="nav-link ml-auto" href="#">PRUEBA DE PROGRAMACION CON RUBY</a>
+                    <a class="nav-link ml-auto mt-3 ml-auto" style="font-size: 1rem"; href="#">PRUEBA DE PROGRAMACION CON RUBY</a>
                 </div>
             </nav>'
 
@@ -52,14 +52,14 @@ def build_web_page(url, api_key)
 
     data.each do |key, value|
         value.each do |cat|
-            # cat["rover"].each do |datos, clase|
                 
 
                         cards += "
 
-                        <div class='card mx-5 mt-5' style='width: 18rem;'>
+                        <div class='card mx-auto mt-5' style='width: 18rem;'>
                                 <img src='#{cat["img_src"]}' class='card-img-top' alt='Rover'>
                             <div class='card-body'>
+                                <p class='card-text' style='font-size:1.5rem;'>Planeta: Marte</p>
                                 <h5 class='card-title'>Id de la imagen #{cat["id"]}</h5>
                                 <p class='card-text'>Fecha: #{cat["earth_date"]}</p>
                             </div>
@@ -69,16 +69,15 @@ def build_web_page(url, api_key)
                         "
             
 
-            # end
-                
         end
     end
+                
         
         
         return cards
         return rover
         
-    end
+end
     
 
 
